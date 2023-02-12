@@ -3,8 +3,7 @@
 
 #include "etl/vector.h"
 
-int main()
-{
+int main() {
     std::cout << "Using Conan and ETL" << std::endl;
 
     etl::vector vec {1, 2, 3, 4, 5};

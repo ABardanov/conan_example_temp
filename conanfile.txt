@@ -1,5 +1,6 @@
 [requires]
-etl/20.35.7
+etl/20.35.11
 
 [generators]
-cmake
+CMakeDeps
+CMakeToolchain

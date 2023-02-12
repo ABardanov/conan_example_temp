@@ -1,9 +1,15 @@
-Перво-наперво нужно поставить conan. Ставится из лубого пакетного менеджера или вот сайт https://docs.conan.io/en/latest/
+Перво-наперво нужно поставить conan. Ставится из любого пакетного менеджера или вот сайт https://docs.conan.io/en/latest/
 
 Если Conan ругается на компилятор, тогда нужно :
 1. Нати где на компе лежат файлы profile
 2. Скорее всего там пока только профиль default, если нет его нужно создать :  conan profile new default --detect
-3. Нужно помеянять там параметр compiler.lib.cxx : conan profile update settings.compiler.libcxx=libstdc++11 default
+3. Нужно поменять там параметр compiler.lib.cxx : conan profile update settings.compiler.libcxx=libstdc++11 default, 
+а также установить версия компилятора, если она еще не установлена, например так:
+"
+compiler=gcc
+compiler.libcxx=libstdc++11
+compiler.version=11.2
+"
 4. Должно собраться
 
 Документашка по Embedded Template Library:

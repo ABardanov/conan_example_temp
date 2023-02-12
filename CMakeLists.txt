@@ -1,19 +1,32 @@
 cmake_minimum_required(VERSION 3.15)
 project(etl_project CXX)
 
-
 if(NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/conanfile.txt)
     message(FATAL_ERROR Need conanfile.txt)
 endif()
 
 if(NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/build/conanbuildinfo.cmake)
     message(STATUS Installing conan config)
-    execute_process(COMMAND conan install -if ${CMAKE_CURRENT_SOURCE_DIR}/build ${CMAKE_CURRENT_SOURCE_DIR})
+    execute_process(
+        COMMAND 
+            conan install 
+                -if ${CMAKE_CURRENT_SOURCE_DIR}/build 
+                ${CMAKE_CURRENT_SOURCE_DIR} 
+                --build=missing
+    )
 endif()
 
-include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-conan_basic_setup()
+set(CMAKE_TOOLCHAIN_FILE ${CMAKE_CURRENT_SOURCE_DIR}/build/conan_toolchain.cmake) 
+list(APPEND CMAKE_PREFIX_PATH ${CMAKE_SOURCE_DIR}/build/)
+set(CMAKE_BUILD_TYPE Release)
 
-add_executable(${PROJECT_NAME} main.cpp)
+find_package(etl)
 
-target_link_libraries(${PROJECT_NAME} ${CONAN_LIBS})
+add_executable(${PROJECT_NAME} 
+    main.cpp
+)
+
+target_link_libraries(${PROJECT_NAME} 
+    PUBLIC
+        etl
+)
