@@ -1,3 +1,5 @@
+// Copyright 2023 Aleksey Bardanov
+
 #include <iostream>
 #include <algorithm>
 
